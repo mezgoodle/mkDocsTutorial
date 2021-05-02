@@ -3,4 +3,5 @@ nav:
     - Home: index.md
     - About: about.md
     - Test: test.md
+repo_url: https://github.com/mezgoodle/mkDocsTutorial
 theme: readthedocs
