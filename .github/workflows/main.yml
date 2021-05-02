@@ -1,0 +1,30 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    # Install mkdocs and build the page 
+    - name: Build
+      run: | 
+        sudo apt-get install python3-setuptools
+        python3 -m pip install mkdocs mkdocs-material
+        python3 -m mkdocs build
+    # Deploy to the gh-branch using the GITHUB_TOKEN.
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.TOKEN }}
+        publish_dir: ./site
+        publish_branch: documentation  # deploying branch
